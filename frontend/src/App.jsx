@@ -1,11 +1,17 @@
-import Header from "./components/Header"
+import Header from "./components/Header";
+import JobList from "./components/JobList";
+import SideBar from "./components/SideBar";
 
 function App() {
   return (
     <>
-      <Header/>
+      <Header />
+      <div className="flex">
+        <SideBar />
+        <JobList />
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

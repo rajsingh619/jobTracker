@@ -22,25 +22,27 @@ public class jobsRepo {
     public List<jobClass> getJobs(){
         return jdbcTemplate.query(sql,(rs,rowNum)->new jobClass(
                 rs.getInt("jobid"),
-                rs.getString("jobcompanyname"),
-                rs.getString("jobdescription"),
-                rs.getString("jobrole"),
-                rs.getDate("jobapplicationdate").toLocalDate()
+                rs.getString("jobcompany"),
+               rs.getString("jobrole"),
+                rs.getDate("jobapplicationdate").toLocalDate(),
+                rs.getString("jobstatus"),
+                rs.getString("jobnextstep")
         ));
     }
 
     public int addjob(jobClass job) {
         int jobId = job.getJobId();
-        String jobCompanyName = job.getJobCompanyName();
-        String jobDescription = job.getJobDescription();
-        String jobRole = job.getJobRole();
-        LocalDate jobApplicationDate = job.getJobapplicationDate();
+        String jobCompanyName = job.getJobCompany();
+       String jobRole = job.getJobRole();
+       LocalDate jobApplicationDate = job.getJobApplicationDate();
+       String jobStatus = job.getJobStatus();
+       String jobNextStep = job.getJobNextStep();
         String sql = """
                 INSERT INTO jobs 
-                (jobid,jobcompanyname,jobdescription,jobrole,jobapplicationdate)
-                 VALUES(?,?,?,?,?)
+                (jobid,jobcompany,jobrole,jobapplicationdate,jobstatus,jobnextstep)
+                 VALUES(?,?,?,?,?,?)
                  """; //this is a text block
-        return jdbcTemplate.update(sql,jobId,jobCompanyName,jobDescription,jobRole,jobApplicationDate);
+        return jdbcTemplate.update(sql,jobId,jobCompanyName,jobRole,jobApplicationDate,jobStatus,jobNextStep);
 
     }
 
@@ -48,16 +50,17 @@ public class jobsRepo {
         String sql = "SELECT * FROM jobs where jobid=?";
         return jdbcTemplate.queryForObject(sql,(rs,rowNum)->new jobClass(
                 rs.getInt("jobid"),
-                rs.getString("jobcompanyname"),
-                rs.getString("jobdescription"),
+                rs.getString("jobcompany"),
                 rs.getString("jobrole"),
-                rs.getDate("jobapplicationdate").toLocalDate()
+                rs.getDate("jobapplicationdate").toLocalDate(),
+                rs.getString("jobstatus"),
+                rs.getString("jobnextstep")
         ),jobId);
     }
 
     public int updatejob(jobClass job) {
-        String sql = "UPDATE jobs SET jobid=?, jobcompanyname=?, jobdescription=?, jobrole=?, jobapplicationdate=? WHERE jobid=? ";
-        return jdbcTemplate.update(sql,job.getJobId(),job.getJobCompanyName(),job.getJobDescription(),job.getJobRole(),job.getJobapplicationDate(),job.getJobId());
+        String sql = "UPDATE jobs SET jobid=?, jobcompany=?, jobrole=?, jobapplicationdate=?,jobstatus=?,jobnextstep=? WHERE jobid=? ";
+        return jdbcTemplate.update(sql,job.getJobId(),job.getJobCompany(),job.getJobRole(),job.getJobApplicationDate(),job.getJobStatus(),job.getJobNextStep(),job.getJobId());
     }
 
     public int deletejob(int jobId) {

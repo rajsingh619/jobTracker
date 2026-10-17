@@ -9,17 +9,19 @@ import java.time.LocalDate;
 @Scope("prototype")
 public class jobClass {
     private int jobId;
-    private String jobCompanyName;
-    private String jobDescription;
+    private String jobCompany;
     private String jobRole;
-    private LocalDate jobapplicationDate;
+    private LocalDate jobApplicationDate;
+    private String jobStatus;
+    private String jobNextStep;
 
-    public jobClass(int jobId, String jobCompanyName, String jobDescription, String jobRole, LocalDate jobapplicationdate) {
+    public jobClass(int jobId, String jobCompanyName, String jobRole, LocalDate jobApplicationDate, String jobStatus, String jobNextStep) {
         this.jobId = jobId;
-        this.jobCompanyName = jobCompanyName;
-        this.jobDescription = jobDescription;
+        this.jobCompany = jobCompanyName;
         this.jobRole = jobRole;
-        this.jobapplicationDate = jobapplicationdate;
+        this.jobApplicationDate = jobApplicationDate;
+        this.jobStatus = jobStatus;
+        this.jobNextStep = jobNextStep;
     }
 
     public int getJobId() {
@@ -30,20 +32,12 @@ public class jobClass {
         this.jobId = jobId;
     }
 
-    public String getJobCompanyName() {
-        return jobCompanyName;
+    public String getJobCompany() {
+        return jobCompany;
     }
 
-    public void setJobCompanyName(String jobCompanyName) {
-        this.jobCompanyName = jobCompanyName;
-    }
-
-    public String getJobDescription() {
-        return jobDescription;
-    }
-
-    public void setJobDescription(String jobDescription) {
-        this.jobDescription = jobDescription;
+    public void setJobCompany(String jobCompany) {
+        this.jobCompany = jobCompany;
     }
 
     public String getJobRole() {
@@ -54,11 +48,27 @@ public class jobClass {
         this.jobRole = jobRole;
     }
 
-    public LocalDate getJobapplicationDate() {
-        return jobapplicationDate;
+    public LocalDate getJobApplicationDate() {
+        return jobApplicationDate;
     }
 
-    public void setJobapplicationDate(LocalDate jobapplicationDate) {
-        this.jobapplicationDate = jobapplicationDate;
+    public void setJobApplicationDate(LocalDate jobApplicationDate) {
+        this.jobApplicationDate = jobApplicationDate;
+    }
+
+    public String getJobStatus() {
+        return jobStatus;
+    }
+
+    public void setJobStatus(String jobStatus) {
+        this.jobStatus = jobStatus;
+    }
+
+    public String getJobNextStep() {
+        return jobNextStep;
+    }
+
+    public void setJobNextStep(String jobNextStep) {
+        this.jobNextStep = jobNextStep;
     }
 }

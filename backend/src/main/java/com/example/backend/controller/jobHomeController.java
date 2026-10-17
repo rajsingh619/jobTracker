@@ -16,10 +16,6 @@ public class jobHomeController {
         this.jobservice=jobservice;
     }
 
-    @GetMapping({"/","/home"})
-    public String home(){
-        return "Hello World";
-    }
 
     @GetMapping("jobs")
     public List<jobClass> jobs(){
