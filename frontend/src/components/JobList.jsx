@@ -1,50 +1,50 @@
-export default function JobList() {
-  return (
-    <div className="flex-1 p-6">
-      <table className="w-full border-separate border-spacing-x-0 border-spacing-y-3 table-fixed">
-        <thead className="">
-          <tr className="bg-gray-200 border-collapse border-spacing-0">
-            <th className="text-left p-3">Company</th>
-            <th className="text-left p-3">Role</th>
-            <th className="text-left p-3">Date Applied</th>
-            <th className="text-left p-3">Status</th>
-            <th className="text-left p-3">Next Step</th>
-          </tr>
-        </thead>
+import { useState,useEffect } from "react";
+import { getJobs } from "../http.js";
+import JobCard from "./JobCard.jsx";
+import JobTable from "./JobTable.jsx";
 
-        <tbody>
-          <tr>
-            <td className="font-semibold">Amazon</td>
-            <td className="font-semibold">Software-Developer</td>
-            <td>22.09.2025</td>
-            <td>
-              <select className="rounded-md border border-gray-300 px-3 py-2 text-sm">
-                <option>Interview</option>
-                <option>Applied</option>
-                <option>Offer</option>
-                <option>Withdrawn</option>
-                <option>Rejected</option>
-              </select>
-            </td>
-            <td className="wrap-normal">Check applications on the career portal and ask to them to t review it and also again select the career portal</td>
-          </tr>
-           <tr>
-            <td className="font-semibold">Amazon</td>
-            <td className="font-semibold">Software-Developer</td>
-            <td>22.09.2025</td>
-            <td>
-              <select className="rounded-md border border-gray-300 px-3 py-2 text-sm">
-                <option>Interview</option>
-                <option>Applied</option>
-                <option>Offer</option>
-                <option>Withdrawn</option>
-                <option>Rejected</option>
-              </select>
-            </td>
-            <td className="wrap-normal">Check applications on the career portal and ask to them to t review it and also again select the career portal</td>
-          </tr>
-        </tbody>
-      </table>
+
+export default function JobList() {
+  const [jobList, setJobList] = useState([]);
+  const [isLoading,setIsLoading] = useState(false);
+  const [error,setError] = useState();
+  
+  useEffect(()=>{
+    async function fetchJobs(){
+      setIsLoading(true);
+      try {
+        const jobs = await getJobs();
+        setJobList(jobs);
+      } catch (error) {
+        setError(error);
+      }
+      setIsLoading(false);
+    }
+    fetchJobs();
+  },[])
+
+  if(error){
+    return (
+      <div className="h-fit w-fit p-3 bg-red-400 m-4">
+        <p className="font-bold">Failed to load the jobs</p>
+        <p>Error: {error.message}</p>
+      </div>
+    )
+  }
+
+
+
+  return (
+    <>
+    {/* Mobile view  */}
+    <div className="md:hidden">
+      <JobCard jobList ={jobList} isLoading={isLoading}/>
     </div>
+
+    {/* Desktop view */}
+    <div className="flex-1 p-6 md:block hidden">
+     <JobTable jobList={jobList} isLoading={isLoading}/>
+    </div>
+    </>
   );
 }
