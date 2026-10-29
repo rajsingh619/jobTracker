@@ -42,7 +42,7 @@ export default function JobList() {
     </div>
 
     {/* Desktop view */}
-    <div className="flex-1 p-6 md:block hidden">
+    <div className="flex-1 pl-8 pr-8  md:block hidden">
      <JobTable jobList={jobList} isLoading={isLoading}/>
     </div>
     </>

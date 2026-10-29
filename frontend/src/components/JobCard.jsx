@@ -4,7 +4,7 @@ export default function JobCard({ jobList,isLoading }) {
     {isLoading && <p>Jobs are loading....</p>}
       {jobList.map((jobs) => (
         <article
-          className="rounded-lg border border-gray-200 bg-white p-3"
+          className="rounded-lg border border-gray-200 bg-white p-3 m-4"
           key={jobs.jobId}
         >
           <div className="flex items-center justify-between gap-2">

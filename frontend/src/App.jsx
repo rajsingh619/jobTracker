@@ -1,6 +1,7 @@
 import Header from "./components/Header";
 import JobList from "./components/JobList";
 import SideBar from "./components/SideBar";
+import AddJob from "./components/AddJob";
 
 function App() {
   return (
@@ -8,7 +9,10 @@ function App() {
       <Header />
       <div className="flex flex-col md:flex-row">
         <SideBar />
-        <JobList />
+        <div className="flex flex-col ">
+          <AddJob/>
+          <JobList />
+        </div>
       </div>
     </>
   );
